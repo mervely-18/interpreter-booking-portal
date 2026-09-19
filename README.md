@@ -1,34 +1,41 @@
-# Society Member & Admin Management System
+# Interpreter Booking Portal
 
-**Internship project** — a Laravel web application for managing society members: registration, authentication, and a role-based admin panel for viewing, editing, and removing member accounts.
+A Laravel-based company portal built during my software engineering internship at **Absolute Interpretations** (Birmingham, UK).
 
-## Tech Stack
+## Overview
 
-Laravel · Blade templates · MySQL/SQLite (Eloquent ORM) · PHP password hashing (bcrypt)
+This project started as a series of small Laravel and JSON practice exercises and progressively grew into a functional portal for registering and managing interpreting staff. It has two access levels — worker and admin — each with its own login flow and permissions.
 
 ## Features
 
-### Member Registration & Login
-Custom registration flow validating name, email (unique), and password (min. 8 characters, confirmed), with passwords securely hashed before storage.
+- **Worker registration & login** — workers create an account and log in to their own profile.
+- **Worker profile & language selection** — after logging in, a worker enters their address, phone number and occupation (e.g. the type of appointment they're interpreting for), and selects their interpreting language from a live, searchable language dropdown.
+- **Admin login & dashboard** — a separate admin login leads to a private dashboard listing every registered worker, with the ability to edit or delete records.
+- **Backend validation** — registration, login and profile-update forms are validated server-side before hitting the database.
+- **Secure credential handling** — sensitive configuration (database, mail, app key) is kept out of source control via Laravel's `.env` file.
+- **Dynamic JavaScript** — the language dropdown and interactive UI elements are populated and updated client-side.
 
-### Role-Based Admin Access
-A separate admin login checks the authenticated user's role before granting access, keeping member-facing and admin-facing authentication cleanly separated rather than reusing one login for both.
+## Internship experience
 
-### Admin Dashboard
-Lists every registered member (`User::all()`), with inline edit and delete actions per row — the delete action removes a member record, and the edit action opens a form to update their name, email, password, language, and occupation.
+Delivered as a series of weekly assigned engineering tasks at Absolute Interpretations:
 
-### Member Profile Fields
-Extended the default Laravel user model with `language` and `occupation` fields, added via a dedicated migration, so members can be categorised beyond the basic auth fields.
+- Progressed from Laravel/JSON exercises to developing a functional company portal with admin/user access controls and backend validation.
+- Built a JSON-based translation store and integrated it into a multi-language API, applying secure credential handling throughout.
+- Integrated dynamic JavaScript features and secured credentials using `.env` configuration, delivering weekly assigned engineering tasks.
 
-### Permission Levels
-A `user_level` column (added via migration) distinguishes admin accounts from standard members, laying the groundwork for role-based feature access across the app.
+## Tech stack
 
-## What I Learned
+- PHP / Laravel
+- Blade templates
+- Vanilla JavaScript (Fetch API)
+- SQLite (default local database)
 
-Designing custom authentication flows without relying solely on framework scaffolding · writing and running Laravel migrations to evolve a schema over time · debugging real routing issues (duplicate route names, mismatched Blade variables) · structuring an admin CRUD interface around Eloquent models.
+## Running locally
 
----
-
-### CV-ready one-liner
-
-> Built a Laravel-based member management system with custom registration/login, role-based admin access, and a full admin dashboard for viewing, editing, and removing member accounts.
+\`\`\`bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+\`\`\`
